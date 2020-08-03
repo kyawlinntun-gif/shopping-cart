@@ -1,0 +1,7 @@
+.shopping-index img {
+    height: 150px;
+}
+
+.shopping-index .clearfix > div {
+    padding: 6px;
+}

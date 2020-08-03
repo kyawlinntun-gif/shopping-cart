@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Cart;
+use App\Product;
+use Illuminate\Http\Request;
+use Session;
+
+class ProductsController extends Controller
+{
+    public function index()
+    {
+        $products = Product::latest()->get();
+        return view('shopping.index', [
+            'products' => $products
+        ]);
+    }
+
+    public function addToCart(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        // dd($oldCart);
+        $cart = new Cart($oldCart);
+        $cart->add($product);
+
+        $request->session()->put('cart', $cart);
+
+        // dd(Session::get('cart'));
+        return redirect('/');
+    }
+
+    public function show()
+    {
+        if(!Session::has('cart'))
+        {
+            return view('cart.show', ['products' => null]);
+        }
+        $oldCart = Session::get('cart');
+        $newCart = new Cart($oldCart);
+        return view('cart.show', ['products' => $newCart->items, 'totalPrice' => $newCart->totalPrice]);
+    }
+
+    public function checkout()
+    {
+        if(!Session::has('cart'))
+        {
+            return view('cart.show');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $totalPrice = $cart->totalPrice;
+        return view('cart.checkout', ['totalPrice' => $totalPrice]);
+    }
+}
