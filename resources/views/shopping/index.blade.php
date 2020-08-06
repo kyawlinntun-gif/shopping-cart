@@ -8,6 +8,8 @@
 
         <div class="container">
 
+            @include('messages.success.success')
+
             <h1>Laravel Shopping Cart</h1>
 
             @foreach($products->chunk(3) as $productChunk)

@@ -14,7 +14,24 @@
 
                     <h1>Checkout</h1>
 
-                    <strong>TotalPrice: ${{ $totalPrice }}</strong>
+                    <form action="{{ url('checkout') }}" method="POST">
+                        @csrf
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ env('STRIPE_PUB_KEY') }}"
+                            data-amount="{{ $totalPrice * 100 }}"
+                            data-name="Stripe Demo"
+                            data-description="Stripe payment"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-currency="usd">
+                        </script>
+
+                    </form>
+
+                    {{-- <strong>TotalPrice: ${{ $totalPrice }}</strong>
+
+                    <div id="charge-error" class="alert alert-danger" {{ !Session::has('error') ? 'hidden' : '' }}>{{ Session::get('error') }}</div>
 
                     <form action="{{ url('checkout') }}" method="POST" class="mt-2">
                     
@@ -56,7 +73,7 @@
                             <input type="text" class="form-control" id="cvc" required>
                         </div>
 
-                        <input type="submit" class="btn btn-success" value="Buy">
+                        <input type="submit" class="btn btn-success" value="Buy"> --}}
 
                     </form>
 
@@ -67,5 +84,12 @@
         </div>
 
     </div>
+
+@endsection
+
+@section('script')
+
+    <script src="https://js.stripe.com/v3/"></script>
+    {{-- <script src="{{ asset('js/checkout.js') }}"></script> --}}
 
 @endsection

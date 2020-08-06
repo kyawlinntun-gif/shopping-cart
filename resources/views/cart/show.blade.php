@@ -49,7 +49,21 @@
 
                     <div class="col-6 offset-3">
 
-                        <a href="{{ url('checkout') }}" class="btn btn-success">Checkout</a>
+                        {{-- <a href="{{ url('checkout') }}" class="btn btn-success">Checkout</a> --}}
+                        <form action="{{ url('checkout') }}" method="POST">
+                            @csrf
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{ env('STRIPE_PUB_KEY') }}"
+                                data-amount="{{ $totalPrice * 100 }}"
+                                data-name="Stripe Demo"
+                                data-description="Stripe payment"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto"
+                                data-currency="usd">
+                            </script>
+    
+                        </form>
 
                     </div>
 
@@ -64,5 +78,12 @@
         </div>
 
     </div>
+
+@endsection
+
+@section('script')
+
+    <script src="https://js.stripe.com/v3/"></script>
+    {{-- <script src="{{ asset('js/checkout.js') }}"></script> --}}
 
 @endsection
