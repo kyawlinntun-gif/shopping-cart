@@ -14,7 +14,7 @@
 
                     <h1>Checkout</h1>
 
-                    <form action="{{ url('checkout') }}" method="POST">
+                    {{-- <form action="{{ url('checkout') }}" method="POST">
                         @csrf
                         <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -27,9 +27,9 @@
                             data-currency="usd">
                         </script>
 
-                    </form>
+                    </form> --}}
 
-                    {{-- <strong>TotalPrice: ${{ $totalPrice }}</strong>
+                    <strong>TotalPrice: ${{ $totalPrice }}</strong>
 
                     <div id="charge-error" class="alert alert-danger" {{ !Session::has('error') ? 'hidden' : '' }}>{{ Session::get('error') }}</div>
 
@@ -73,7 +73,7 @@
                             <input type="text" class="form-control" id="cvc" required>
                         </div>
 
-                        <input type="submit" class="btn btn-success" value="Buy"> --}}
+                        <input type="submit" class="btn btn-success" value="Buy">
 
                     </form>
 

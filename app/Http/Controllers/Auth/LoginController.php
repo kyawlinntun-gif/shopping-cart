@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
+use Session;
 
 class LoginController extends Controller
 {
@@ -34,6 +35,11 @@ class LoginController extends Controller
 
         if(Auth::check())
         {
+            // if(Session::has('url'))
+            // {
+            //     $url = Session::get('url');
+            //     return redirect("$url");
+            // }
             return redirect('/');
         }
 

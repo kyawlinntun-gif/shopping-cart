@@ -24,6 +24,7 @@
                         @include('messages.errors.password_confirmation')
                         <input type="submit" class="btn btn-primary">
                     </form>
+                    <p>Don't have an account! <a href="{{ route('register') }}">Sign up instead!</a></p>
                 </div>
             </div>
         </div>

@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
-use App\Product;
-use Illuminate\Http\Request;
 use Session;
+use App\Cart;
+use App\Order;
+use App\Product;
+use Stripe\Charge;
 use Stripe\Stripe;
 use Stripe\Customer;
-use Stripe\Charge;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+
+    public function __construct()
+    {
+        return $this->middleware('auth')->only(['checkout', 'payCheckout']);
+    }
+
     public function index()
     {
         $products = Product::latest()->get();
@@ -60,6 +68,7 @@ class ProductsController extends Controller
     public function payCheckout(Request $request)
     {
         // return $request->all();
+        // return $request->all();
         if(!Session::has('cart'))
         {
             return redirect('checkout');
@@ -83,6 +92,12 @@ class ProductsController extends Controller
                 // "source" => $request->input('stripeToken')
             ]);
             // ],["stripe_account" => "acct_1HCjO8AWmj4NL1Ij"]);
+            $order = new Order;
+            $order->name = $request->stripeBillingName;
+            $order->address = $request->stripeBillingAddressLine1;
+            $order->payment_id = $charge->id;
+            $order->cart = serialize($cart);
+            Auth::user()->orders()->save($order);
         } catch (\Exception $e){
             return redirect('cart/show')->with('error', $e->getMessage());
         }
