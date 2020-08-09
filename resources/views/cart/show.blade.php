@@ -30,8 +30,8 @@
                                             Action
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Reduce by 1</a>
-                                            <a class="dropdown-item" href="#">Reduce by all</a>
+                                            <a class="dropdown-item" href="{{ url('cart/reduce/'.$product['item']['id']) }}">Reduce by 1</a>
+                                            <a class="dropdown-item" href="{{ url('cart/remove/'.$product['item']['id']) }}">Reduce by all</a>
                                         </div>
                                     </div>
                                     <span class="badge badge-pill badge-secondary float-right">{{ $product['qty'] }}</span></li>

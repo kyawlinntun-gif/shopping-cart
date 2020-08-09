@@ -30,6 +30,9 @@
     <!-- jquery js -->
     <script src="{{ asset('js/jquery.js') }}"></script> 
 
+    {{-- popper js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
     <!-- bootstrap js -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

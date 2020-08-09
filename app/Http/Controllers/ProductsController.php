@@ -42,6 +42,42 @@ class ProductsController extends Controller
         return redirect('/');
     }
 
+    public function reduce($id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->reduce($id);
+
+        if($cart->totalQty <= 0)
+        {
+            Session::forget('cart');
+        }
+        else
+        {
+            Session::put('cart', $cart);
+        }
+        
+        return redirect()->back();
+    }
+
+    public function remove($id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->remove($id);
+
+        if($cart->totalQty <=0)
+        {
+            Session::forget('cart');
+        }
+        else
+        {
+            Session::put('cart', $cart);
+        }
+
+        return redirect()->back();
+    }
+
     public function show()
     {
         if(!Session::has('cart'))
